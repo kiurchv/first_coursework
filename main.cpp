@@ -5,38 +5,40 @@
 
 void main () {
 //	creating objects
-	ObjectModel object;
-	TargetModel target;
+	ObjectModel object_model;
+	TargetModel target_model;
 	Controller controller;
 	ScreenView screen;
-	FileView file;
+	ObjectView object_view;
+	TargetView target_view;
 //	entering data
-	controller.get_data(&object, &target);
+	controller.get_data(&object_model, &target_model);
 //	rendering screen
 	screen.init();
-	//screen.load_map();
+	screen.draw_map();
 	screen.draw_grid();
-	screen.draw_target(&target);
-	screen.draw_object(&object);
+	target_view.draw(&target_model);
+	object_view.draw(&object_model);
 	
 //	begin modelling
-	while (distance(object.get_coords, target.get_coords) != object.get_radius()) {
-		target.move(controller.listen());
-		screen.draw_target(&target);
+	while (distance(object_model.get_coords, target_model.get_coords) != object_model.get_radius()) {
+		target_model.move(controller.listen());
+		target_view.draw(&target_model);
 	}
 	if (probability() < 0.7) {
-		target.kill();
-		screen.destroy_target(&target);
+		target_model.kill();
+		target_view.destroy(&target_model);
 	} else {
-		while (distance(object.get_coords, target.get_coords) != target.get_radius()) {
-			target.move(controller.listen());
-			screen.draw_target(&target);
+		while (distance(object_model.get_coords, target_model.get_coords) != target_model.get_radius()) {
+			target_model.move(controller.listen());
+			target_view.draw(&target_model);
 		}
 	}
 	if (probability() < 0.9) {
-		object.kill();
-		screen.destroy_object(&object);
+		object_model.kill();
+		object_view.destroy(&object_model);
 	}
 // writing results
-	file.write_results(&target);
+	
+		
 }

@@ -5,7 +5,7 @@ class ScreenView {
 	private:
 	public:
 		void init ();
-		void load_map ();
+		void draw_map ();
 		void draw_grid (int step, int color);
 		void draw_info (TargetModel *);
 };
@@ -48,36 +48,22 @@ void ScreenView::draw_grid (int step = 50, int color = LIGHTBLUE) {
 }
 
 
-void ScreenView::draw_info (TargetModel *target) {
-	char x[6];
-	char y[6];
-	char v[6];
-	char q[6];
+void ScreenView::draw_info (ObjectModel *object, TargetModel *target) {
+	char x[6];	itoa(int(target->coords.x), x, 10);
+	char y[6];	itoa(int(target->coords.y), y, 10);
+	char v[6];	itoa(int(target->v), v, 10);
+	char q[6];	itoa(int(target->q), q, 10);
+	char d[6];	itoa(distance(object->coords, target->coords), d, 10)
 	/*char h[2];
 	char m[2];
 	char s[2];*/
-	itoa(int(target->coords.x), x, 10);
-	itoa(int(target->coords.y), y, 10);
-	itoa(int(target->v), v, 10);
-	itoa(int(target->q), q, 10);
-	setviwport(WIDTH,HEIGHT,640,480,CLIP_ON);
+	setviewport(WIDTH,HEIGHT,640,480,CLIP_ON);
 	setfillstyle(1,BLUE);
 	bar(0,0,160,160);
 	settextstyle(1,0,1);
-  setcolor(15);
-  outtextxy(15,15,"X:");
-  setcolor(LIGHTGRAY);
-	outtextxy(20,15,x);
-  setcolor(15);
-  outtextxy(15,25,"Y:");
-  setcolor(LIGHTGRAY);
-	outtextxy(20,25,y);
-  setcolor(15);
-  outtextxy(15,35,"V:");
-  setcolor(LIGHTGRAY);
-	outtextxy(20,35,v);
-	setcolor(15);
-  outtextxy(15,45,"Q:");
-  setcolor(LIGHTGRAY);
-	outtextxy(20,45,q);
+  setcolor(WHITE);	outtextxy(15,15,"X:");	setcolor(LIGHTGRAY);	outtextxy(20,15,x);
+  setcolor(WHITE);	outtextxy(15,25,"Y:");  setcolor(LIGHTGRAY);	outtextxy(20,25,y);
+  setcolor(WHITE);	outtextxy(15,35,"V:");  setcolor(LIGHTGRAY);	outtextxy(20,35,v);
+	setcolor(WHITE);	outtextxy(15,45,"Q:");  setcolor(LIGHTGRAY);	outtextxy(20,45,q);
+	setcolor(WHITE);	outtextxy(15,45,"D:");  setcolor(LIGHTGRAY);	outtextxy(20,55,d);
 }

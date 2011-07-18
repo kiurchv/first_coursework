@@ -1,29 +1,27 @@
 #include "bitmap.cpp"
 class TargetView {
 	private:
-		Bitmap img("resources//target.bmp");
 		void *buffer;
 		ipoint location;
 		int r;
 	public:
-		TargetView ();
+		~TargetView ();
 		void draw (TargetModel *);
 		void destroy (TargetModel *);
 };
-
-TargetView::TargetView () {
-	buffer = malloc(img.get_size());
-}
 
 TargetView::~TargetView () {
 	free(buffer);
 }
 
 void TargetView::draw (TargetModel *data) {
-	setviewport(0,0,WIDTH,HEIGHT,CLIP_ON);	
-	if (location) {
+	Bitmap img("resources//target.bmp");
+	setviewport(0,0,WIDTH,HEIGHT,CLIP_ON);		
+	if (buffer) {
 		putimage( location.x-r,
 							location.y-r, buffer, 256 );	
+	}	else {
+		buffer = malloc(img.get_size());
 	}
 	location.x = int(data->coords.x);
 	location.y = int(data->coords.y);

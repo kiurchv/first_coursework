@@ -1,7 +1,7 @@
 #include "bitmap.cpp"
 class ObjectView {
 	private:
-		Bitmap img("resources//object.bmp");
+		~ObjectView ();
 		void *buffer;
 		ipoint location;
 		int r;
@@ -10,19 +10,17 @@ class ObjectView {
 		void destroy ();
 };
 
-ObjectView::ObjectView () {
-	buffer = malloc(img.get_size());
-}
-
 ObjectView::~ObjectView () {
 	free(buffer);
 }
 
 void ObjectView::draw (ObjectModel *data) {
+	Bitmap img("resources//object.bmp");	
 	setviewport(0,0,WIDTH,HEIGHT,CLIP_ON);	
 	location.x = int(data->coords.x);
 	location.y = int(data->coords.y);
 	r = data->r;
+	buffer = malloc(img.get_size());
 	getimage(location.x-r,
 					 location.y-r,
 					 location.x+r,
