@@ -1,4 +1,10 @@
-#include "bitmap.cpp"
+#include <alloc.h>
+#include <graphics.h>
+#include "helpers\helpers.cpp"
+#include "helpers\bitmap.cpp"
+#include "helpers\constants.cpp"
+#include "models\object_model.cpp"
+
 class ObjectView {
 	private:
 		~ObjectView ();

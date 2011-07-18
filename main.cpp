@@ -1,7 +1,14 @@
-#include "target_model.cpp"
-#include "object_model.cpp"
+//	Models
+#include "models\target_model.cpp"
+#include "models\object_model.cpp"
+//	Views
+#include "views\screen_view.cpp"
+#include "views\target_view.cpp"
+#include "views\object_view.cpp"
+// Controllers
 #include "controller.cpp"
-#include "screen_view.cpp"
+//Helpers
+#include "helpers\helpers.cpp"
 
 void main () {
 //	creating objects
@@ -22,7 +29,7 @@ void main () {
 	
 //	begin modelling
 	while (distance(object_model.get_coords, target_model.get_coords) != object_model.get_radius()) {
-		target_model.move(controller.listen());
+		target_model.move(controller.listen(), &object_model);
 		target_view.draw(&target_model);
 	}
 	if (probability() < 0.7) {
@@ -30,7 +37,7 @@ void main () {
 		target_view.destroy(&target_model);
 	} else {
 		while (distance(object_model.get_coords, target_model.get_coords) != target_model.get_radius()) {
-			target_model.move(controller.listen());
+			target_model.move(controller.listen(), &object_model);
 			target_view.draw(&target_model);
 		}
 	}

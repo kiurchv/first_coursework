@@ -1,4 +1,10 @@
-#include "bitmap.cpp"
+#include <alloc.h>
+#include <graphics.h>
+#include "helpers\helpers.cpp"
+#include "helpers\bitmap.cpp"
+#include "helpers\constants.cpp"
+#include "models\target_model.cpp"
+
 class TargetView {
 	private:
 		void *buffer;

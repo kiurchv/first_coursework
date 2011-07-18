@@ -1,3 +1,10 @@
+#include <iostream.h>
+#include <bios.h>
+#include <conio.h>
+#include "helpers\constants.cpp"
+#include "models\target_model.cpp"
+#include "models\object_model.cpp"
+
 class Controller {
 	public:
 		Controller();
@@ -8,7 +15,6 @@ class Controller {
 
 Controller::get_data(ObjectModel *object, TargetModel *target) {
 	float r_object, r_target;
-
 	cout << "Set the object dislocation:\n\tEnter X:";
 		cin >> object->x;
 	cout << "\n\tEnter Y:";

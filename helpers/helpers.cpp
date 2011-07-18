@@ -1,5 +1,4 @@
 #include <stdio.h>
-#define pi M_PI
 #define sqr(x) ((x)*(x))
 #include <math.h>
 #include <stdlib.h>
@@ -17,13 +16,14 @@ float probability () {
 	return random(100)/100;
 }
 
-float RtD (float x) return x*180/pi;
+float RtD (float x) return x*180/M_PI;
 
-float DtR (float x) return x*pi/180;
+float DtR (float x) return x*M_PI/180;
 
 //визначення відстані між точками за їх координатами
 float distance (point p1, point p2) return sqrtl(sqr(p2.x-p1.x)+sqr(p2.y-p1.y));
 
+/*
 //визначнеея напряму руху цілі за її поточними координатами
 float direction (point p){
 	if ((p.x==0)|(p.y==0)) {
@@ -48,3 +48,4 @@ float direction (point p){
 		}
 	}
 }
+*/

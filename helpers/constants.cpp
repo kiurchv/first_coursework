@@ -4,6 +4,5 @@
 #define LEFT    0x4b00
 #define RIGHT   0x4d00
 #define ESC 		0x11b
-#define WIDTH	  480;
+#define WIDTH	  640;
 #define HEIGHT  480;
-float dT;

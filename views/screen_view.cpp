@@ -1,5 +1,11 @@
+#include <alloc.h>
 #include <graphics.h>
-#include "bitmap.cpp"
+#include <stdlib.h>
+#include "helpers\bitmap.cpp"
+#include "helpers\helpers.cpp"
+#include "helpers\constants.cpp"
+#include "models\target_model.cpp"
+#include "models\object_model.cpp"
 
 class ScreenView {
 	private:
@@ -37,12 +43,12 @@ void ScreenView::draw_grid (int step = 50, int color = LIGHTBLUE) {
 	char s[10];
 	for (int i = 0; i <= WIDTH; i+=step) {
 		line (i,0,i,HEIGHT);
-		sprintf(s, "%d", i);
+		itoa(i, s, 10);
 		outtextxy(i,HEIGHT-20,s);
 	}
 	for (i = HEIGHT; i>0; i-=step){
 		line (0,i,WIDTH,i);
-		sprintf(s,"%d", i);
+		itoa(i, s, 10);
 		outtextxy(2,i+2,s);
 	}
 }

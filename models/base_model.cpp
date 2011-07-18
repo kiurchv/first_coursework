@@ -1,3 +1,7 @@
+#include "helpers\helpers.cpp"
+#include "controllers\controller.cpp"
+#include "views\screen_view.cpp"
+
 class BaseModel {
 	private:
 		point coords;		//координати
@@ -15,9 +19,7 @@ class BaseModel {
 };
 
 BaseModel::BaseModel () {	
-	P = 0;
 	live = 1;
-	found = 0;
 }
 
 point BaseModel::get_coords () {
@@ -30,10 +32,6 @@ void BaseModel::set_coords (point coords_in) {
 
 float BaseModel::get_radius () {
 	return R;			
-}
-
-void BaseModel::set_found (int found_in = 1) {
-	found = found_in;
 }
 
 int is_live () {
