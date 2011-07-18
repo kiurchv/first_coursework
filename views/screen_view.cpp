@@ -7,9 +7,7 @@ class ScreenView {
 		void init ();
 		void load_map ();
 		void draw_grid (int step, int color);
-		void draw_object (ObjectModel *);
 		void draw_info (TargetModel *);
-		void destroy_object (ObjectModel *);
 };
 
 void ScreenView::init () {
@@ -82,8 +80,4 @@ void ScreenView::draw_info (TargetModel *target) {
   outtextxy(15,45,"Q:");
   setcolor(LIGHTGRAY);
 	outtextxy(20,45,q);
-}
-
-void destroy_object (ObjectModel *object) {
-	
 }

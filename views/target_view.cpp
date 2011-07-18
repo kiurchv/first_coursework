@@ -1,8 +1,10 @@
 #include "bitmap.cpp"
 class TargetView {
 	private:
+		Bitmap img("resources//target.bmp");
 		void *buffer;
-		ipoint current_location;
+		ipoint location;
+		int r;
 	public:
 		TargetView ();
 		void draw (TargetModel *);
@@ -10,7 +12,6 @@ class TargetView {
 };
 
 TargetView::TargetView () {
-	Bitmap img("resources//target.bmp");
 	buffer = malloc(img.get_size());
 }
 
@@ -20,23 +21,30 @@ TargetView::~TargetView () {
 
 void TargetView::draw (TargetModel *data) {
 	setviewport(0,0,WIDTH,HEIGHT,CLIP_ON);	
-	if (current_location) {
-		putimage( current_location.x-data->r,
-							current_location.y-data->r, buffer, 256 );	
+	if (location) {
+		putimage( location.x-r,
+							location.y-r, buffer, 256 );	
 	}
-	current_location.x = int(data->coords.x);
-	current_location.y = int(data->coords.y);
-	getimage(current_location.x-data->r,
-					 current_location.y-data->r,
-					 current_location.x+data->r,
-					 current_location.y+data->r, buffer);
-	img.put( current_location.x-data->r,
-									current_location.y-data->r, 1, 15);
+	location.x = int(data->coords.x);
+	location.y = int(data->coords.y);
+	r = data->r;
+	getimage(location.x-r,
+					 location.y-r,
+					 location.x+r,
+					 location.y+r, buffer);
+	img.put(location.x-r,
+					location.y-r, 1, 15);
 	setcolor(RED);
-	circle(current_location.x, current_location.y, data->r);
+	circle(location.x, location.y, r);
 }
 
 void destroy (TargetModel *data)	{
-
-	
+	Bitmap destroyed("resources//target_destroyed.bmp");	
+	setviewport(0,0,WIDTH,HEIGHT,CLIP_ON);
+	putimage( location.x-r,
+						location.y-r, buffer, 256 );	
+	location.x = int(data->coords.x);
+	location.y = int(data->coords.y);
+	destroyed.put(location.x-r,
+								location.y-r, 1, 15);
 }
