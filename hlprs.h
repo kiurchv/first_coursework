@@ -6,9 +6,11 @@ typedef struct {
 	int x,y;
 } ipoint;
 
-float probability () {
-	randomize();
-	return random(100)/100;
+float prob () {
+	float p;
+	p=rand()%100;
+	p/=100;
+	return p;
 }
 
 float RtD (float x) { return x*180/M_PI; }

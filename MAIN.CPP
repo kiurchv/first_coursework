@@ -41,25 +41,31 @@ void main () {
 	screen.init();
 	screen.draw_map();
 	screen.draw_grid();
+	screen.draw_info (&object_model,&target_model);
 	target_view.draw(&target_model);
 	object_view.draw(&object_model);
+	delay(1000);
 //	begin modelling
-	while (distance(object_model.coords, target_model.coords) != object_model.r) {
+	while (distance(object_model.coords, target_model.coords) > object_model.r) {
 		target_model.move(controller.listen(), &object_model);
 		target_view.draw(&target_model);
+		screen.draw_info (&object_model,&target_model);
 	}
-	if (probability() < 0.7) {
+	if (prob() < 0.9) {
 		target_model.kill();
 		target_view.destroy();
+		screen.draw_info (&object_model,&target_model);
 	} else {
-		while (distance(object_model.coords, target_model.coords) != target_model.r) {
+		while (distance(object_model.coords, target_model.coords) > target_model.r) {
 			target_model.move(controller.listen(), &object_model);
 			target_view.draw(&target_model);
+			screen.draw_info (&object_model,&target_model);
 		}
-	}
-	if (probability() < 0.9) {
-		object_model.kill();
-		object_view.destroy();
+		if (prob() < 0.7) {
+			object_model.kill();
+			object_view.destroy();
+			screen.draw_info (&object_model,&target_model);
+		}
 	}
 // writing results
 	getch();

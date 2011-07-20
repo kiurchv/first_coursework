@@ -26,13 +26,12 @@ void TargetModel::set_speed (float v_in) {
 
 void TargetModel::move (int direction_change, ObjectModel *object) {
 	float q;
+	V*=2;
 	q=(object->coords.x-coords.x)/distance(coords, object->coords);
 	Q=asin(q)*180/M_PI;
 	switch (direction_change) {
-		case 1:	Q-=40;
-						break;
-		case 2:	Q+=40;
-						break;
+		case 1:	coords.x-=1; coords.y-=1; break;
+		case 2:	coords.x+=1; coords.y+=1; break;
 	}
 	if(Q<0) Q+=360;
 	coords.x-=V/Mv*dT*cos((90-Q)*M_PI);

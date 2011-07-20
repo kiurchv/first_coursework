@@ -47,23 +47,36 @@ void ScreenView::draw_grid () {
 	}
 }
 
-void ScreenView::draw_info (ObjectModel *object, TargetModel *target) {
-	char x[6];	itoa(int(target->coords.x), x, 10);
-	char y[6];	itoa(int(target->coords.y), y, 10);
-	char v[6];	itoa(int(target->V), v, 10);
-	char q[6];	itoa(int(target->Q), q, 10);
-	char d[6];	itoa(distance(object->coords, target->coords), d, 10);
-	/*char h[2];
-	char m[2];
-	char s[2];*/
-	setviewport(480,480,WIDTH,HEIGHT,1);
+void ScreenView::draw_info (ObjectModel *object_data, TargetModel *target_data) {
+	int x0 = 450;
+	char x[3];	itoa(int(target_data->coords.x), x, 10);
+	char y[3];	itoa(int(target_data->coords.y), y, 10);
+	char v[4];	itoa(int(target_data->V), v, 10);
+	char q[3];	itoa(int(target_data->Q), q, 10);
+	char d[3];	itoa(int(distance(object_data->coords, target_data->coords)), d, 10);
+
+	// putting data
 	setfillstyle(1,BLUE);
-	bar(0,0,160,160);
+	bar(x0,0,x0+190,100);
 	settextstyle(1,0,1);
-  setcolor(WHITE);	outtextxy(15,15,"X:");	setcolor(LIGHTGRAY);	outtextxy(20,15,x);
-  setcolor(WHITE);	outtextxy(15,25,"Y:");  setcolor(LIGHTGRAY);	outtextxy(20,25,y);
-  setcolor(WHITE);	outtextxy(15,35,"V:");  setcolor(LIGHTGRAY);	outtextxy(20,35,v);
-	setcolor(WHITE);	outtextxy(15,45,"Q:");  setcolor(LIGHTGRAY);	outtextxy(20,45,q);
-	setcolor(WHITE);	outtextxy(15,45,"D:");  setcolor(LIGHTGRAY);	outtextxy(20,55,d);
+  setcolor(WHITE);	outtextxy(x0+15,15,"X:");	setcolor(LIGHTGRAY);	outtextxy(x0+30,15,x);
+  setcolor(WHITE);	outtextxy(x0+15,25,"Y:"); setcolor(LIGHTGRAY);	outtextxy(x0+30,25,y);
+  setcolor(WHITE);	outtextxy(x0+15,35,"V:"); setcolor(LIGHTGRAY);	outtextxy(x0+30,35,v);
+	setcolor(WHITE);	outtextxy(x0+15,45,"Q:"); setcolor(LIGHTGRAY);	outtextxy(x0+30,45,q);
+	setcolor(WHITE);	outtextxy(x0+15,55,"D:");	setcolor(LIGHTGRAY);	outtextxy(x0+30,55,d);
+	setcolor(WHITE);	outtextxy(x0+15,65,"Target state:");
+
+	if (target_data->live) {
+		setcolor(GREEN);	outtextxy(x0+130,65,"LIVE");
+	} else {
+		setcolor(RED);		outtextxy(x0+130,65,"DESTROY");
+	}
+
+	setcolor(WHITE);	outtextxy(x0+15,75,"Object state:");
+	if (object_data->live) {
+		setcolor(GREEN);	outtextxy(x0+130,75,"LIVE");
+	} else {
+		setcolor(RED);		outtextxy(x0+130,75,"DESTROY");
+	}
 }
 

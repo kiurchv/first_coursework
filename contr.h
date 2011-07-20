@@ -21,7 +21,7 @@ target->coords.x=100;
 target->coords.y=400;
 	//cout << "Enter the speed of target:\n\tV=";
 		//cin >>
-target->V=1000;
+target->V=2000;
 	do {
     //cout<<"Enter damage radius of object:\n\tRo=";
 			//cin >>
@@ -39,14 +39,16 @@ target->V=1000;
 }
 
 int Controller::listen () {
+	int key;
+	int event = 0;
 	if (kbhit()) {
-		switch (bioskey(0)) {
-			case LEFT:	return 1;	break;
-			case RIGHT:	return 2;	break;
-			default:	return 0;
+		key = bioskey(0);
+		switch (key) {
+			case LEFT:	event = 1;	break;
+			case RIGHT:	event = 2;	break;
+			case ESC:		exit(0);
 		}
-	} else {
-		return 0;
 	}
+	return event;
 }
 

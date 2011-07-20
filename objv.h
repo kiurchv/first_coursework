@@ -25,10 +25,10 @@ void ObjectView::draw (ObjectModel *data) {
 	x = int(data->coords.x);
 	y = int(data->coords.y);
 	r = data->r;
-	Bitmap img("obj.bmp");
+	Bitmap image("obj.bmp");
 	buffer = malloc(imagesize(x-r,y-r,x+r ,y+r));
 	getimage(x-r,y-r,x+r ,y+r, buffer);
-	img.put(x-img.get_width()/2, y-img.get_height()/2, 1, 15);
+	image.put(x-image.get_width()/2, y-image.get_height()/2, 1, 15);
 	setcolor(BLUE);
 	circle(x,y,r);
 }
@@ -36,6 +36,6 @@ void ObjectView::draw (ObjectModel *data) {
 void ObjectView::destroy () {
 	putimage(x-r,y-r,buffer,COPY_PUT);
 	Bitmap destroyed("objd.bmp");
-	destroyed.put(x-r, y-r, 1, 15);
+	destroyed.put(x-destroyed.get_width()/2, y-destroyed.get_height()/2, 1, 15);
 }
 
