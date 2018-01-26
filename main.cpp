@@ -44,7 +44,7 @@ void main () {
 	screen_view.init();
 	screen_view.draw_map();
 	screen_view.draw_grid();
-	target_view.draw(&target_model);
+	target_view.draw(&target_model, object_model.coords);
 	object_view.draw(&object_model);
 	screen_view.draw_info(&object_model,&target_model);
 	//adding data to list
@@ -52,7 +52,7 @@ void main () {
 	//	begin modelling
 	while (distance(object_model.coords, target_model.coords) > object_model.r) {
 		target_model.move(controller.listen(), &object_model);
-		target_view.draw(&target_model);
+		target_view.draw(&target_model, object_model.coords);
 		screen_view.draw_info(&object_model,&target_model);
 		file_view.write(&object_model,&target_model);
 	}
@@ -64,7 +64,7 @@ void main () {
 	} else {
 		while (distance(object_model.coords, target_model.coords) > target_model.r) {
 			target_model.move(controller.listen(), &object_model);
-			target_view.draw(&target_model);
+			target_view.draw(&target_model, object_model.coords);
 			screen_view.draw_info (&object_model,&target_model);
 			file_view.write(&object_model,&target_model);
 		}

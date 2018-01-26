@@ -7,28 +7,21 @@ class Controller {
 void Controller::get_data(ObjectModel *object, TargetModel *target) {
 	int r_object, r_target;
 	clrscr();
-	//cout << "Set the object dislocation:\n\tEnter X:";
-		//cin >>
-object->coords.x=320;
-	//cout << "\n\tEnter Y:";
-		//cin >>
-object->coords.y=240;
-	//cout << "Set the target dislocation:\n\tEnter X:";
-		//cin >>
-target->coords.x=100;
-	//cout << "\n\tEnter Y:";
-		//cin >>
-target->coords.y=400;
-	//cout << "Enter the speed of target:\n\tV=";
-		//cin >>
-target->V=2000;
+	cout << "Set the object dislocation:\n\tEnter X:";
+		cin >> object->coords.x;
+	cout << "\n\tEnter Y:";
+		cin >> object->coords.y;
+	cout << "Set the target dislocation:\n\tEnter X:";
+		cin >> target->coords.x;
+	cout << "\n\tEnter Y:";
+		cin >> target->coords.y;
+	cout << "Enter the speed of target:\n\tV=";
+		cin >> target->V;
 	do {
-    //cout<<"Enter damage radius of object:\n\tRo=";
-			//cin >>
- r_object=50;
-    //cout << "Enter damage radius of target:\n\tRt=";
-			//cin >>
- r_target=35;
+    cout<<"Enter damage radius of object:\n\tRo=";
+			cin >> r_object;
+    cout << "Enter damage radius of target:\n\tRt=";
+			cin >> r_target;
     if ( (r_target < 35) || (r_object < r_target) ) {
 			cout << "Minimal Rt is 35. Ro must be bigger than Rt!\n";
 		} else {

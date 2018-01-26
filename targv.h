@@ -7,7 +7,7 @@ class TargetView {
 	public:
 		TargetView ();
 		~TargetView ();
-		void draw (TargetModel *);
+		void draw (TargetModel *, point);
 		void destroy ();
 };
 
@@ -21,8 +21,21 @@ TargetView::~TargetView () {
 	free(buffer);
 }
 
-void TargetView::draw (TargetModel *data) {
-	Bitmap image("targ.bmp");
+void TargetView::draw (TargetModel *data, point object_coords) {
+	char imgpath[10];
+	if ((data->coords.x < object_coords.x) && (data->coords.y < object_coords.y)) {
+			strcpy(imgpath,"targse.bmp");
+	}
+	if ((data->coords.x > object_coords.x) && (data->coords.y < object_coords.y)) {
+			strcpy(imgpath,"targsw.bmp");
+	}
+	if ((data->coords.x < object_coords.x) && (data->coords.y > object_coords.y)) {
+			strcpy(imgpath,"targne.bmp");
+	}
+	if ((data->coords.x > object_coords.x) && (data->coords.y > object_coords.y)) {
+			strcpy(imgpath,"targnw.bmp");
+	}
+	Bitmap image(imgpath);
 	if (!buffer)	{
 		buffer = malloc(imagesize(x-r,y-r,x+r,y+r));
 	} else {

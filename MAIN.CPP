@@ -8,6 +8,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //	Helpers
 #include "const.h"
@@ -23,51 +24,57 @@
 #include "scrv.h"
 #include "targv.h"
 #include "objv.h"
+#include "filev.h"
 
 // Controllers
 #include "contr.h"
 
 void main () {
-//	creating objects
+	//	creating objects
 	TargetModel target_model;
 	ObjectModel object_model;
 	Controller controller;
-	ScreenView screen;
+	ScreenView screen_view;
 	TargetView target_view;
 	ObjectView object_view;
-//	entering data
+	FileView file_view;
+	//	entering data
 	controller.get_data(&object_model, &target_model);
-//	rendering screen
-	screen.init();
-	screen.draw_map();
-	screen.draw_grid();
-	screen.draw_info (&object_model,&target_model);
-	target_view.draw(&target_model);
+	//	rendering screen, target, object and info
+	screen_view.init();
+	screen_view.draw_map();
+	screen_view.draw_grid();
+	target_view.draw(&target_model, object_model.coords);
 	object_view.draw(&object_model);
-	delay(1000);
-//	begin modelling
+	screen_view.draw_info(&object_model,&target_model);
+	//adding data to list
+	file_view.write(&object_model,&target_model);
+	//	begin modelling
 	while (distance(object_model.coords, target_model.coords) > object_model.r) {
 		target_model.move(controller.listen(), &object_model);
-		target_view.draw(&target_model);
-		screen.draw_info (&object_model,&target_model);
+		target_view.draw(&target_model, object_model.coords);
+		screen_view.draw_info(&object_model,&target_model);
+		file_view.write(&object_model,&target_model);
 	}
-	if (prob() < 0.9) {
+	if (prob() < 0.7) {
 		target_model.kill();
 		target_view.destroy();
-		screen.draw_info (&object_model,&target_model);
+		screen_view.draw_info (&object_model,&target_model);
+		file_view.write(&object_model,&target_model);
 	} else {
 		while (distance(object_model.coords, target_model.coords) > target_model.r) {
 			target_model.move(controller.listen(), &object_model);
-			target_view.draw(&target_model);
-			screen.draw_info (&object_model,&target_model);
+			target_view.draw(&target_model, object_model.coords);
+			screen_view.draw_info (&object_model,&target_model);
+			file_view.write(&object_model,&target_model);
 		}
-		if (prob() < 0.7) {
+		if (prob() < 0.5) {
 			object_model.kill();
 			object_view.destroy();
-			screen.draw_info (&object_model,&target_model);
+			screen_view.draw_info (&object_model,&target_model);
+			file_view.write(&object_model,&target_model);
 		}
 	}
-// writing results
 	getch();
 }
 
